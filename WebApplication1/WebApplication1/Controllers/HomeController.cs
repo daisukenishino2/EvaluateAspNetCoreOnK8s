@@ -8,7 +8,8 @@ using WebApplication1.Models;
 
 using Microsoft.AspNetCore.Http;
 
-using Npgsql;
+//using Npgsql;
+using System.Data.SqlClient;
 
 namespace WebApplication1.Controllers
 {
@@ -23,10 +24,10 @@ namespace WebApplication1.Controllers
         public IActionResult About()
         {
             string count = "";
-            using (var con = new NpgsqlConnection("HOST=postgres;DATABASE=postgres;USER ID=postgres;PASSWORD=seigi@123;"))
+            using (var con = new SqlConnection("Data Source=10.0.75.1\\sqlexpress;Initial Catalog=Northwind;User ID=sa;Password=seigi@123;"))
             {
                 con.Open();
-                var cmd = new NpgsqlCommand(@"select count(*) from shippers", con);
+                var cmd = new SqlCommand(@"select count(*) from shippers", con);
                 count = cmd.ExecuteScalar().ToString();
             }
             ViewData["Message"] = "Your application description page. " + count + "件";
