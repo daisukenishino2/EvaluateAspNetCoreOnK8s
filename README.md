@@ -9,4 +9,4 @@ KubernetesでASP.NET Coreを評価する。(Evaluate ASP.Net Core on Kubernetes.
 Open棟梁 @ ASP.NET Core on K8sの評価を行う予定。
 
 ## ちなみに
-開発環境のバージョンは、VS2019の.NET Core 2.0 or 3.0でVisual Studio Kubernetes Toolsを使用します。
+...。
