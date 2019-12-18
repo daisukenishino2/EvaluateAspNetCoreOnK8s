@@ -11,11 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.DataProtection;
-//using Microsoft.AspNetCore.DataProtection.StackExchangeRedis;
-
-using StackExchange.Redis;
-
 
 namespace WebApplication1
 {
@@ -93,7 +88,13 @@ namespace WebApplication1
             // Sessionのモード
             //services.AddDistributedMemoryCache(); // 開発用
             //services.AddDistributedSqlServerCache();
-            //services.AddDistributedRedisCache();
+
+            // Redisを設定
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = "redis";
+                option.InstanceName = "redis";
+            });
 
             // Sessionを使用する。
             services.AddSession();
