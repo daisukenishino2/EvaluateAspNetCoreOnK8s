@@ -7,8 +7,8 @@ KubernetesでASP.NET Coreを評価する。(Evaluate ASP.Net Core on Kubernetes.
 - 参考
   - OSSコンソーシアム  
 Docker for Windows上で Docker Composeでテストし、Open PaaSにデプロイできる
-    - [(1)](https://www.osscons.jp/joweexgq6-537/)
-    - [(2)](https://www.osscons.jp/jo6610sfd-537/)
+    - [その１](https://www.osscons.jp/joweexgq6-537/)
+    - [その２](https://www.osscons.jp/jo6610sfd-537/)
 ## MVC_Sample
 Open棟梁 @ ASP.NET Core on Docker Compose → K8sの評価を行う予定。
 
