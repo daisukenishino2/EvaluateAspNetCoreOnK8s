@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: webapplication1
-        image: daisukenishinoacr.azurecr.io/webapplication1:<Tag>
+        image: daisukenishinoacr.azurecr.io/webapplication1:20191218041803
         resources: 
           requests:
             cpu: "250m"

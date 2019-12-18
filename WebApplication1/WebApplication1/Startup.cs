@@ -1,13 +1,21 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.DataProtection;
+//using Microsoft.AspNetCore.DataProtection.StackExchangeRedis;
+
+using StackExchange.Redis;
+
 
 namespace WebApplication1
 {
@@ -18,53 +26,79 @@ namespace WebApplication1
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // Redis„ÇíË®≠ÂÆö
-            services.AddDistributedRedisCache(option =>
-            {
-                option.Configuration = "redis";
-                option.InstanceName = "redis";
-            });
-
-            // Session„Çí‰ΩøÁî®„Åô„Çã„ÄÇ
-            services.AddSession(options =>
-            {
-                // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.HttpOnly = true;
-            });
-
-            services.AddMvc();
-        }
+        public IConfiguration Configuration { get; }        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
-
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            // Session„Çí‰ΩøÁî®„Åô„Çã„ÄÇ
-            app.UseSession();
-
-            app.UseMvc(routes =>
+            // CookieÇégópÇ∑ÇÈÅB
+            app.UseCookiePolicy(new CookiePolicyOptions()
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                HttpOnly = HttpOnlyPolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                //Secure= CookieSecurePolicy.Always
             });
+
+            // SessionÇégópÇ∑ÇÈÅB
+            app.UseSession(new SessionOptions()
+            {
+                IdleTimeout = TimeSpan.FromMinutes(30), // Ç±Ç±Ç≈í≤êÆ
+                IOTimeout = TimeSpan.FromSeconds(30),
+                Cookie = new CookieBuilder()
+                {
+                    Expiration = TimeSpan.FromDays(1), // å¯Ç©Ç»Ç¢
+                    HttpOnly = true,
+                    Name = "mvc_session",
+                    Path = "/",
+                    SameSite = SameSiteMode.Strict,
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest
+                }
+            });
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent
+                // for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+            });
+
+            // SessionÇÃÉÇÅ[Éh
+            //services.AddDistributedMemoryCache(); // äJî≠óp
+            //services.AddDistributedSqlServerCache();
+            //services.AddDistributedRedisCache();
+
+            // SessionÇégópÇ∑ÇÈÅB
+            services.AddSession();
+
+            services.AddControllersWithViews();
         }
     }
 }
