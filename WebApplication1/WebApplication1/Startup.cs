@@ -93,7 +93,7 @@ namespace WebApplication1
             services.AddDistributedRedisCache(option =>
             {
                 // Local
-                option.Configuration = "localhost";
+                option.Configuration = "10.0.75.1";
                 //// Docker Compose
                 //option.Configuration = "redis";
                 //// Kubernetes
