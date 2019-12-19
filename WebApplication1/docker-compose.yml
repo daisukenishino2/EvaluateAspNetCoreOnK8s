@@ -10,6 +10,7 @@ services:
       - "5000:5000"
     links:
       - redis
+      - mssql
   redis:
     image: redis
     volumes:
@@ -19,3 +20,16 @@ services:
     ports:
       - "6379:6379"
     restart: always
+  mssql:
+    image: microsoft/mssql-server-linux:2017-latest
+    volumes:
+      - mssql-data:/var/opt/mssql/
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: seigi@123
+    ports:
+      - "1433:1433"
+
+volumes:
+  mssql-data:
+    driver: local

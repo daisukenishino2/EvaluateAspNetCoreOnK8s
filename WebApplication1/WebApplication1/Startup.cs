@@ -92,8 +92,10 @@ namespace WebApplication1
             // Redis‚ðÝ’è
             services.AddDistributedRedisCache(option =>
             {
-                // Docker Compose
-                option.Configuration = "redis";
+                // Local
+                option.Configuration = "localhost";
+                //// Docker Compose
+                //option.Configuration = "redis";
                 //// Kubernetes
                 //option.Configuration = "webapplication1-back";
 
