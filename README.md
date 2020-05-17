@@ -11,11 +11,13 @@ Docker for Windows上で Docker Composeでテストし、Open PaaSにデプロ�
     - [その２](https://www.osscons.jp/jo6610sfd-537/)
 
 ## [WebApplication2](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/WebApplication2)
--[/EvaluateAspNetCoreOnK8s/.../WebApplication1](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/WebApplication1)をベースにして、
--以下の２つのdocker-compose.ymlの良い所取りをした。
---[/EvaluateAspNetCoreOnDocker/.../WebApplication1](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/WebApplication1)
---[/EvaluateAspNetCoreOnDocker/.../LocalServices](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/LocalServices)
+- [/EvaluateAspNetCoreOnK8s/.../WebApplication1](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/WebApplication1)をベースにして、
+- 以下の２つのdocker-compose.ymlの良い所取りをした。
+  - [/EvaluateAspNetCoreOnDocker/.../WebApplication1](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/WebApplication1)
+  - [/EvaluateAspNetCoreOnDocker/.../LocalServices](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/LocalServices)
 
 ## [MVC_Sample](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/MVC_Sample)
--[/EvaluateAspNetCoreOnDocker/.../MVC_Sample](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/MVC_Sample)をベースにして、
--[WebApplication2](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/WebApplication2)のdocker-compose.ymlの良い所取りをした。
+- [/EvaluateAspNetCoreOnDocker/.../MVC_Sample](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/MVC_Sample)をベースにして、
+- 以下の２つのdocker-compose.ymlの良い所取りをした。
+  - [/EvaluateAspNetCoreOnDocker/.../LocalServices](https://github.com/daisukenishino2/EvaluateAspNetCoreOnDocker/tree/master/LocalServices)
+  - [/EvaluateAspNetCoreOnK8s/.../WebApplication2](https://github.com/daisukenishino2/EvaluateAspNetCoreOnK8s/tree/master/WebApplication2)
