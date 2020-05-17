@@ -32,12 +32,8 @@ namespace WebApplication2.Controllers
         public IActionResult Privacy()
         {
         	string count = "";
-            // Local
-            using (var con = new SqlConnection("Data Source=10.0.75.1\\sqlexpress;Initial Catalog=Northwind;User ID=sa;Password=seigi@123;"))
-            //// Docker Compose
-            //using (var con = new SqlConnection("Data Source=mssql;Initial Catalog=Northwind;User ID=sa;Password=seigi@123;"))
-            //// Kubernetes
-            //using (var con = new SqlConnection("Data Source=mssql-deployment;Initial Catalog=Northwind;User ID=sa;Password=MyC0m9l&xP@ssw0rd;"))            
+            // Docker Compose
+            using (var con = new SqlConnection("Data Source=sqlserver;Initial Catalog=Northwind;User ID=sa;Password=seigi@123;"))
             {
                 con.Open();
                 var cmd = new SqlCommand(@"select count(*) from shippers", con);

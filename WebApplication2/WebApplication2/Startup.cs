@@ -56,7 +56,7 @@ namespace WebApplication2
                 {
                     Expiration = TimeSpan.FromDays(1), // Œø‚©‚È‚¢
                     HttpOnly = true,
-                    Name = "mvc_session",
+                    Name = "_mvc_session",
                     Path = "/",
                     SameSite = SameSiteMode.Strict,
                     SecurePolicy = CookieSecurePolicy.SameAsRequest
@@ -92,13 +92,8 @@ namespace WebApplication2
             // Redis‚ðÝ’è
             services.AddDistributedRedisCache(option =>
             {
-                // Local
-                option.Configuration = "10.0.75.1";
-                //// Docker Compose
-                //option.Configuration = "redis";
-                //// Kubernetes
-                //option.Configuration = "WebApplication2-back";
-
+                // Docker Compose
+                option.Configuration = "redis";
                 option.InstanceName = "redis";
             });
 
