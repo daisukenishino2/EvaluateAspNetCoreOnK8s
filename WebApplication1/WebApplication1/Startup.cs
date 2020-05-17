@@ -21,7 +21,7 @@ namespace WebApplication1
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }        
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -92,10 +92,10 @@ namespace WebApplication1
             // Redis‚ðÝ’è
             services.AddDistributedRedisCache(option =>
             {
-                // Local
-                option.Configuration = "10.0.75.1";
-                //// Docker Compose
-                //option.Configuration = "redis";
+                //// Local
+                //option.Configuration = "10.0.75.1";
+                // Docker Compose
+                option.Configuration = "redis";
                 //// Kubernetes
                 //option.Configuration = "webapplication1-back";
 

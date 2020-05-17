@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  nginx-proxy:
+    image: nginx-proxy
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8888:80"
+    links:
+      - webapplication2
+  webapplication2:
+    image: ${DOCKER_REGISTRY-}webapplication2
+    build:
+      context: .
+      dockerfile: WebApplication2/Dockerfile
+    links:
+      - redis
+      - sqlserver
+
+  redis:
+    image: redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - ./redis/data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+
+  sqlserver:
+    image: microsoft/mssql-server-linux:latest
+    restart: always
+    command: "sh -c '/init/start-up.sh & /opt/mssql/bin/sqlservr;'"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=seigi@123
+      - MSSQL_PID=Express
+      - MSSQL_LCID=1041
+      - MSSQL_COLLATION=Japanese_CI_AS
+    volumes:
+      #- ./sqlserver/mssql-db:/var/opt/mssql
+      - ./sqlserver/init:/init
