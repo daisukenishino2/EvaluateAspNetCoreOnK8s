@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: WebApplication1/Dockerfile
-    ports:
-      - "5000:5000"
     links:
       - redis
       - mssql
@@ -21,14 +19,20 @@ services:
       - "6379:6379"
     restart: always
   mssql:
-    image: microsoft/mssql-server-linux:2017-latest
-    volumes:
-      - mssql-data:/var/opt/mssql/
+    image: microsoft/mssql-server-linux:latest
+    restart: always
+    command: "sh -c '/init/start-up.sh & /opt/mssql/bin/sqlservr;'"
     environment:
-      ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: seigi@123
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=seigi@123
+      - MSSQL_PID=Express
+      - MSSQL_LCID=1041
+      - MSSQL_COLLATION=Japanese_CI_AS
     ports:
-      - "1433:1433"
+      - 1433:1433
+    volumes:
+      #- ./mssql/mssql-db:/var/opt/mssql
+      - ./mssql/init:/init
 
 volumes:
   mssql-data:
