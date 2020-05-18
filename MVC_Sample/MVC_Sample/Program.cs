@@ -51,6 +51,7 @@ namespace MVC_Sample
 
             return WebHost.CreateDefaultBuilder(args) //  IWebHostBuilderを取得する。
                 .UseStartup<Startup>() // IWebHostBuilder.UseStartup<TStartup> メソッドにStartupクラスを指定。
+                .UseUrls("http://0.0.0.0:5000/")
                 .Build(); // IWebHostBuilder.Build メソッドでIWebHostクラスインスタンスを返す。
         }
     }
