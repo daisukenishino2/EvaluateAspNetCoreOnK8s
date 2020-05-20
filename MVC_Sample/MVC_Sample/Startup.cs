@@ -166,9 +166,15 @@ namespace MVC_Sample
             });
 
             // Sessionのモード
-            services.AddDistributedMemoryCache(); // 開発用
+            //services.AddDistributedMemoryCache(); // 開発用
             //services.AddDistributedSqlServerCache();
-            //services.AddDistributedRedisCache();
+            services.AddDistributedRedisCache(option =>// Redisを設定
+
+            {
+                // Docker Compose
+                option.Configuration = "redis";
+                option.InstanceName = "redis";
+            });
 
             // Sessionを使用する。
             services.AddSession();
